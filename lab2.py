@@ -13,9 +13,9 @@ from sklearn.model_selection import train_test_split
 
 def evaluate(t, predict, criterion):
     tp=float(sum((predict==1) & (t==1)))
-    tn=float(sum((predict==-1) & (t==0)))
+    tn=float(sum((predict==0) & (t==0)))
     fp=float(sum((predict==1) & (t==0)))
-    fn=float(sum((predict==-1) & (t==1)))
+    fn=float(sum((predict==0) & (t==1)))
     try:
         precision=tp/(tp+fp)
     except ZeroDivisionError:
