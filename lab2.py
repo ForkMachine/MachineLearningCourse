@@ -13,9 +13,9 @@ from sklearn.model_selection import train_test_split
 
 def evaluate(t, predict, criterion):
     tp=float(sum((predict==1) & (t==1)))
-    tn=float(sum((predict==0) & (t==0)))
+    tn=float(sum((predict==-1) & (t==0)))
     fp=float(sum((predict==1) & (t==0)))
-    fn=float(sum((predict==0) & (t==1)))
+    fn=float(sum((predict==-1) & (t==1)))
     try:
         precision=tp/(tp+fp)
     except ZeroDivisionError:
@@ -25,11 +25,11 @@ def evaluate(t, predict, criterion):
     except ZeroDivisionError:
         recall = float('nan')   
     try:
-        accuracy=(tp+tn)/len(t)
+        accuracy=(tp+tn)/(tp+tn+fp+fn)
     except ZeroDivisionError:
         accuracy = float('nan')
     try:
-        fscore=2*precision + recall/(precision+recall)
+        fscore= precision*recall/((precision+recall)/2)
     except ZeroDivisionError:
         fscore = float('nan')
     try:
